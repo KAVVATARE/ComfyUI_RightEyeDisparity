@@ -1,74 +1,74 @@
 # ComfyUI_RightEyeDisparity
 
-VR動画用の右目視差動画を生成するシンプルなComfyUIカスタムノードです。左目動画と深度マップから右目動画のみを効率的に生成します。
+A simple ComfyUI custom node for generating right eye disparity videos for VR. Generates right eye videos efficiently based on left eye video and depth maps.
 
-## 特徴
+## Features
 
-- 🎬 **動画バッチ処理対応**: メモリ効率を考慮した設計
-- 👁️ **右目動画のみ出力**: 必要最小限の処理でメモリを節約
-- 🔧 **高品質な視差生成**: ComfyStereoの実績あるアルゴリズムを使用
-- 📹 **既存ワークフローとの統合**: Video CombineやMeta Batchノードと連携
+- 🎬 **Video Batch Processing**: Memory-efficient design
+- 👁️ **Right Eye Only Output**: Saves memory by processing only what's needed
+- 🔧 **High-Quality Disparity Generation**: Uses proven algorithms from ComfyStereo
+- 📹 **Workflow Integration**: Works seamlessly with Video Combine and Meta Batch nodes
 
-## インストール
+## Installation
 
-1. ComfyUIのカスタムノードフォルダにクローン：
+1. Clone into ComfyUI custom nodes folder:
 ```bash
 cd ComfyUI/custom_nodes
-git clone https://github.com/yourusername/ComfyUI_RightEyeDisparity
+git clone https://github.com/KAVVATARE/ComfyUI_RightEyeDisparity.git
 ```
 
-2. 依存関係をインストール：
+2. Install dependencies:
 ```bash
 cd ComfyUI_RightEyeDisparity
 pip install -r requirements.txt
 ```
 
-## 使用方法
+## Usage
 
-### Video Right Eye Disparity ノード
+### Video Right Eye Disparity Node
 
-**入力:**
-- `images`: 左目用の動画フレーム（バッチ）
-- `depth_maps`: 各フレームの深度マップ
-- `fill_technique`: 視差生成時の塗りつぶし技術
+**Inputs:**
+- `images`: Left eye video frames (batch)
+- `depth_maps`: Depth map for each frame
+- `fill_technique`: Occlusion filling technique
 
-**出力:**
-- `images`: 生成された右目動画フレーム
+**Output:**
+- `images`: Generated right eye video frames
 
-**主要パラメータ:**
-- `divergence` (0.05-15): 視差の強さ。大きいほど立体感が強い
-- `separation` (-5-5): 水平オフセット調整
-- `stereo_balance` (-0.95-0.95): 左右の視差バランス
-- `fill_technique`: 推奨は "Fill - Polylines Soft"
+**Key Parameters:**
+- `divergence` (0.05-15): Disparity strength. Higher values create stronger 3D effect
+- `separation` (-5-5): Horizontal offset adjustment
+- `stereo_balance` (-0.95-0.95): Left/right disparity balance
+- `fill_technique`: Recommended "Fill - Polylines Soft"
 
-### ワークフローの例
+### Example Workflow
 
-1. **Load Video** → 左目動画を読み込み
-2. **MiDaS Depth Map** → 深度マップを生成
-3. **Video Right Eye Disparity** → 右目動画を生成
-4. **Upscale** → 必要に応じて左右個別にアップスケール
-5. **Video Combine** → Meta Batchで動画として保存
+1. **Load Video** → Load left eye video
+2. **MiDaS Depth Map** → Generate depth maps
+3. **Video Right Eye Disparity** → Generate right eye video
+4. **Upscale** → Optionally upscale left/right separately
+5. **Video Combine** → Save as video with Meta Batch
 
-## メモリ最適化のヒント
+## Memory Optimization Tips
 
-- バッチサイズを調整してメモリ使用量をコントロール
-- `direction_aware_depth_blur`は無効化されているため高速
-- 深度マップの返却を省略してメモリを節約
+- Adjust batch size to control memory usage
+- `direction_aware_depth_blur` is disabled for faster processing
+- Depth map output is omitted to save memory
 
-## トラブルシューティング
+## Troubleshooting
 
-### メモリ不足
-- より小さいバッチサイズで処理
-- 解像度を下げて処理後にアップスケール
+### Out of Memory
+- Process with smaller batch sizes
+- Reduce resolution and upscale after processing
 
-### 視差が不自然
-- `divergence`を2-5の範囲で調整
-- 深度マップの品質を確認
+### Unnatural Disparity
+- Adjust `divergence` between 2-5
+- Check depth map quality
 
-## ライセンス
+## License
 
 MIT License
 
-## 謝辞
+## Acknowledgments
 
-このプロジェクトは[ComfyStereo](https://github.com/Dobidop/ComfyStereo)のstereoimage_generation.pyを使用しています。
+This project uses `stereoimage_generation.py` from [ComfyStereo](https://github.com/Dobidop/ComfyStereo).
