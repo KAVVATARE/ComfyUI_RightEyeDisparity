@@ -1,0 +1,13 @@
+[project]
+name = "comfyui-righteye-disparity"
+description = "A simple ComfyUI node for generating right eye disparity for VR videos"
+version = "1.0.0"
+license = {file = "LICENSE"}
+dependencies = ["torch", "numpy", "Pillow", "opencv-python", "numba", "scipy"]
+
+[project.urls]
+Repository = "https://github.com/KAVVATARE/ComfyUI_RightEyeDisparity"
+
+[tool.comfy]
+PublisherId = "KAVVATARE"
+DisplayName = "RightEyeDisparity"
